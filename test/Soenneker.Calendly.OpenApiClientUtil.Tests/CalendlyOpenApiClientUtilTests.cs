@@ -1,20 +1,19 @@
 using Soenneker.Calendly.OpenApiClientUtil.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.Calendly.OpenApiClientUtil.Tests;
 
-[Collection("Collection")]
-public sealed class CalendlyOpenApiClientUtilTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public sealed class CalendlyOpenApiClientUtilTests : HostedUnitTest
 {
     private readonly ICalendlyOpenApiClientUtil _openapiclientutil;
 
-    public CalendlyOpenApiClientUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public CalendlyOpenApiClientUtilTests(Host host) : base(host)
     {
         _openapiclientutil = Resolve<ICalendlyOpenApiClientUtil>(true);
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
 
