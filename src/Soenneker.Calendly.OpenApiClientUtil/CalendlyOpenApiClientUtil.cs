@@ -14,7 +14,6 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Calendly.OpenApiClientUtil;
 
-///<inheritdoc cref="ICalendlyOpenApiClientUtil"/>
 public sealed class CalendlyOpenApiClientUtil : ICalendlyOpenApiClientUtil
 {
     private readonly AsyncSingleton<CalendlyOpenApiClient> _client;
@@ -27,10 +26,11 @@ public sealed class CalendlyOpenApiClientUtil : ICalendlyOpenApiClientUtil
                                                         .NoSync();
 
             var apiKey = configuration.GetValueStrict<string>("Calendly:ApiKey");
+            string authHeaderName = configuration["Calendly:AuthHeaderName"] ?? "Authorization";
             string authHeaderValueTemplate = configuration["Calendly:AuthHeaderValueTemplate"] ?? "Bearer {token}";
             string authHeaderValue = authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
 
-            var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider(headerValue: authHeaderValue), httpClient: httpClient);
+            var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider(authHeaderName, authHeaderValue), httpClient: httpClient);
 
             return new CalendlyOpenApiClient(requestAdapter);
         });
@@ -41,18 +41,11 @@ public sealed class CalendlyOpenApiClientUtil : ICalendlyOpenApiClientUtil
         return _client.Get(cancellationToken);
     }
 
-    /// <summary>
-    /// Releases resources used by the current instance.
-    /// </summary>
     public void Dispose()
     {
         _client.Dispose();
     }
 
-    /// <summary>
-    /// Asynchronously releases resources used by the current instance.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     public ValueTask DisposeAsync()
     {
         return _client.DisposeAsync();
