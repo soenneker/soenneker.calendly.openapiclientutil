@@ -14,6 +14,7 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Calendly.OpenApiClientUtil;
 
+/// <inheritdoc cref="ICalendlyOpenApiClientUtil" />
 public sealed class CalendlyOpenApiClientUtil : ICalendlyOpenApiClientUtil
 {
     private readonly AsyncSingleton<CalendlyOpenApiClient> _client;
