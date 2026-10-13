@@ -26,7 +26,7 @@ public sealed class CalendlyOpenApiClientUtil : ICalendlyOpenApiClientUtil
             HttpClient httpClient = await httpClientUtil.Get(token)
                                                         .NoSync();
 
-            var apiKey = configuration.GetValueStrict<string>("Calendly:ApiKey");
+            var apiKey = configuration.GetStringStrict("Calendly:ApiKey");
             string authHeaderName = configuration["Calendly:AuthHeaderName"] ?? "Authorization";
             string authHeaderValueTemplate = configuration["Calendly:AuthHeaderValueTemplate"] ?? "Bearer {token}";
             string authHeaderValue = authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
