@@ -45,7 +45,7 @@
 
     <ItemGroup>
         <PackageReference Include="Soenneker.Kiota.GenericAuthenticationProvider" Version="11.0.62" />
-        <PackageReference Include="Soenneker.Calendly.HttpClients" Version="11.0.173" />
-        <PackageReference Include="Soenneker.Calendly.OpenApiClient" Version="11.0.154" />
+        <PackageReference Include="Soenneker.Calendly.HttpClients" Version="11.0.177" />
+        <PackageReference Include="Soenneker.Calendly.OpenApiClient" Version="11.0.155" />
     </ItemGroup>
 </Project>
